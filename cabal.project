@@ -1,0 +1,3 @@
+packages: .
+          ./ed-name
+          ./ed-name/discrimination
