@@ -56,6 +56,7 @@ common cts-util-deps
                       ,primitive ^>= 0.7
                       ,monad-ste ^>= 0.1
                       ,ghc-prim >= 0.6 && < 0.9
+                      ,vector ^>= 0.12.1.2
   ghc-options: -Wall
   default-extensions: GADTs, KindSignatures,DataKinds, ScopedTypeVariables, RankNTypes
 
@@ -107,7 +108,8 @@ executable hopper
 
 
   -- Other library packages from which modules are imported.
-  build-depends:      hopper
+  build-depends:
+      -- will depend on hopper
 
   -- Directories containing source files.
   hs-source-dirs:      executables
