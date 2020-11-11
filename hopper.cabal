@@ -51,22 +51,29 @@ extra-source-files: CHANGELOG.md
                     *.md
 
 
+common cts-util-deps
+  build-depends: base >=4.10 && <4.16
+                      ,primitive ^>= 0.7
+                      ,monad-ste ^>= 0.1
+                      ,ghc-prim >= 0.6 && < 0.9
+  ghc-options: -Wall
+  default-extensions: GADTs, KindSignatures,DataKinds, ScopedTypeVariables, RankNTypes
+
 
 
 library
+  import: cts-util-deps
   -- Modules exported by the library.
-  exposed-modules:
+  exposed-modules: Hop.AST.IR
 
   -- Modules included in this library but not exported.
   -- other-modules:
 
   -- LANGUAGE extensions used by modules in this package.
   -- other-extensions:
-
   -- Other library packages from which modules are imported.
-  build-depends:      base >=4.10 && <4.13
-                      ,primitive ^>= 0.6
-                      ,monad-ste ^>= 0.1
+
+  build-depends:
 
   -- Directories containing source files.
   hs-source-dirs:     src
@@ -76,17 +83,19 @@ library
   default-language:    Haskell2010
 
 library hopper-models
+  import: cts-util-deps
   exposed-modules:
   other-modules:
     CoreTT
   build-depends:
-    base
+
   hs-source-dirs: models/hs
   default-language: Haskell2010
 
 
 
 executable hopper
+  import: cts-util-deps
   -- .hs or .lhs file containing the Main module.
   main-is:             Main.hs
 
@@ -96,9 +105,9 @@ executable hopper
   -- LANGUAGE extensions used by modules in this package.
   -- other-extensions:
 
+
   -- Other library packages from which modules are imported.
-  build-depends:       base
-                       ,hopper
+  build-depends:      hopper
 
   -- Directories containing source files.
   hs-source-dirs:      executables
