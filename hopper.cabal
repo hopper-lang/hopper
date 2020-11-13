@@ -108,8 +108,7 @@ executable hopper
 
 
   -- Other library packages from which modules are imported.
-  build-depends:
-      -- will depend on hopper
+  build-depends:  hopper
 
   -- Directories containing source files.
   hs-source-dirs:      executables
