@@ -42,6 +42,13 @@ data Name  where
   Global :: !FullyQName  -> Name
   deriving (Eq,Ord,Show)
 
+infixl 5 :::
+
+--- todo: think about left vs right fold/traversals and what we want here
+data Telescope a where
+  ( :@ ) :: Telescope a
+  (::: ) :: !(Telescope a) -> !a -> Telescope a
+  deriving (Eq,Ord,Show,Functor,Foldable,Traversable)
 
 data UsageVal  =
   Irrelevant    |
@@ -65,15 +72,22 @@ data Decl  where
      -> [DerivingNotes]
      -> Decl
   --- DecDataInd takes a sum (sequence) of constructor names paired with their typesigs  and some deriving directions
+  DecRecordDependent :: Symbol
+     -> Term -- kind sig
+     -> Decl
 
   --
 
 data Literal  where
   LitNat :: !Natural -> Literal
   LitInteger :: !Integer -> Literal
+
   LitRational :: !Rational -> Literal
+
+  -- NOTE WELL! IEEE floats have two zeros, several sorting orders, plus signalling vs quiet cpu semantics
   LitDouble :: !Double -> Literal
   LitFloat :: !Float -> Literal
+
   LitUtfString :: !Symbol -> Literal
 
 data Term  where
